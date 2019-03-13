@@ -1,0 +1,63 @@
+{
+  "targets": [
+    {
+      "endpoint": "/cool-endpoint",
+      "method": "get",
+      "args": [
+        {
+          "type": "path",
+          "generator": {
+            "type": "alphanumeric",
+            "len": 8
+          }
+        },
+        {
+          "type": "query",
+          "name": {
+            "type": "fixed",
+            "value": "id"
+          },
+          "value": {
+            "type": "choice",
+            "values": ["undefined", "null", "-1", "0", "foo", "", "I%20like%20pancakes"]
+          }
+        },
+        {
+          "type": "query",
+          "name": {
+            "type": "fixed",
+            "value": "more"
+          },
+          "value": {
+            "type": "numeric",
+            "len": 6
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user",
+      "method": "post",
+      "args": [
+        {
+          "type": "path",
+          "generator": {
+            "type": "alphanumeric",
+            "len": 10
+          }
+        },
+        {
+          "type": "query",
+          "name": {
+            "type": "choice",
+            "values": ["admin", "trusted"]
+          },
+          "value": {
+            "type": "choice",
+            "values": ["true", "false", "", "undefined", "null", "-1", "0", "Nan", "foo"]
+          }
+        }
+      ]
+    }
+  ]
+}
