@@ -13,7 +13,7 @@ arguments are generated.
 
 ```none
 USAGE:
-    heel-gun [OPTIONS] <url> <config>
+    heel-gun [OPTIONS] <url> <config> [outdir]
 
 FLAGS:
     -h, --help       Prints help information
@@ -23,8 +23,9 @@ OPTIONS:
     -N <n>        number of iterations to test for each target [default: 100]
 
 ARGS:
-    <url>       the URL to test
+    <url>       the base URL to test
     <config>    path to configuration file
+    <outdir>    path to the output directory containing the logs [default: output]
 ```
 
 Example:

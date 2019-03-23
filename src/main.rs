@@ -25,10 +25,10 @@ use target::*;
 
 type DynError = Box<std::error::Error + Send + Sync>;
 
-/// Application CLI arguments
+/// Test for HTTP server robustness
 #[derive(Debug, StructOpt)]
 pub struct HeelGun {
-    /// the URL to test
+    /// the base URL to test
     url: String,
     /// path to configuration file
     #[structopt(parse(from_os_str))]
