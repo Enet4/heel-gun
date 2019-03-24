@@ -1,3 +1,5 @@
+#![deny(unsafe_code)]
+
 use std::fs::{create_dir_all, File};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
