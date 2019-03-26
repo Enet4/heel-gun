@@ -27,7 +27,7 @@ targets:
         value:
           type: numeric
           len: 6
-  - endpoint: /user
+  - endpoint: user
     method: post
     args:
       - type: path
@@ -38,15 +38,3 @@ targets:
         name:
           type: choice
           values: [admin, trusted]
-        value:
-          type: magic
-          values:
-            - "true"
-            - "false"
-            - ""
-            - "undefined"
-            - "null"
-            - "-1"
-            - "0"
-            - "NaN"
-            - "foo"

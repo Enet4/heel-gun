@@ -50,9 +50,6 @@
           "name": {
             "type": "choice",
             "values": ["admin", "trusted"]
-          },
-          "value": {
-            "type": "magic"
           }
         }
       ]

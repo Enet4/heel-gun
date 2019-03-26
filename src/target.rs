@@ -95,11 +95,16 @@ impl TestTarget {
 pub enum TestArg {
     /// relative path of the URI
     #[serde(rename = "path")]
-    Path { generator: ArgGenerator },
+    Path {
+        #[serde(default)]
+        generator: ArgGenerator
+    },
     /// query string component
     #[serde(rename = "query")]
     QueryString {
+        #[serde(default)]
         name: ArgGenerator,
+        #[serde(default)]
         value: ArgGenerator,
     },
 }
@@ -129,6 +134,13 @@ pub enum ArgGenerator<V = String> {
     /// Generic "try multiple random things", easy to use
     #[serde(rename = "magic")]
     Magic,
+}
+
+/// The default is magic :)
+impl<V> Default for ArgGenerator<V> {
+    fn default() -> Self {
+        ArgGenerator::Magic
+    }
 }
 
 impl<V> ArgGenerator<V>
