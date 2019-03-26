@@ -107,13 +107,13 @@ pub enum TestArg {
 /// The criterion of argument generation
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(tag = "type")]
-pub enum ArgGenerator {
+pub enum ArgGenerator<V = String> {
     /// Always provide the given string
     #[serde(rename = "fixed")]
-    Fixed { value: String },
+    Fixed { value: V },
     /// Choose one of the given arguments at random
     #[serde(rename = "choice")]
-    Choice { values: Vec<String> },
+    Choice { values: Vec<V> },
     /// Choose a random number from the given range
     #[serde(rename = "range")]
     IntRange { low: i64, high: i64 },
@@ -125,10 +125,16 @@ pub enum ArgGenerator {
     AlphaNumeric { len: u32 },
     /// Choose one of the given generators at random (OR)
     #[serde(rename = "union")]
-    Union { generators: Vec<ArgGenerator> },
+    Union { generators: Vec<ArgGenerator<V>> },
+    /// Generic "try multiple random things", easy to use
+    #[serde(rename = "magic")]
+    Magic,
 }
 
-impl ArgGenerator {
+impl<V> ArgGenerator<V>
+where
+    V: std::fmt::Display,
+{
     /// Randomly sample a value for use in the test.
     pub fn sample<R>(&self, rng: &mut R) -> String
     where
@@ -136,11 +142,11 @@ impl ArgGenerator {
     {
         use ArgGenerator::*;
         match self {
-            Fixed { value } => value.clone(),
+            Fixed { value } => value.to_string(),
             Choice { values } if values.is_empty() => "".to_string(),
             Union { generators } if generators.is_empty() => "".to_string(),
             Union { generators } => generators.choose(rng).unwrap().sample(rng),
-            Choice { values } => values.choose(rng).unwrap().clone(),
+            Choice { values } => values.choose(rng).unwrap().to_string(),
             IntRange { low, high } => rng.gen_range(low, high).to_string(),
             Numeric { len } => std::iter::repeat_with(|| rng.gen_range(b'0', b'9' + 1) as char)
                 .take(*len as usize)
@@ -149,6 +155,17 @@ impl ArgGenerator {
                 rng.sample(rand::distributions::Alphanumeric)
             }).take(*len as usize)
                 .collect(),
+            Magic => {
+                let generators = [
+                    Choice { values: vec!["", "false", "true", "null", "undefined", "NaN", "%20", "%27"] },
+                    AlphaNumeric { len: 16 },
+                    IntRange { low: -100000, high: 100000 },
+                ];
+
+                generators.choose(rng)
+                    .expect("There should be at least one generator")
+                    .sample(rng)
+            }
         }
     }
 }

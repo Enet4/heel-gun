@@ -7,8 +7,7 @@
         {
           "type": "path",
           "generator": {
-            "type": "alphanumeric",
-            "len": 8
+            "type": "magic"
           }
         },
         {
@@ -53,8 +52,7 @@
             "values": ["admin", "trusted"]
           },
           "value": {
-            "type": "choice",
-            "values": ["true", "false", "", "undefined", "null", "-1", "0", "Nan", "foo"]
+            "type": "magic"
           }
         }
       ]

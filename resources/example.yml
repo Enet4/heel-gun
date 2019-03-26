@@ -5,8 +5,7 @@ targets:
     args:
       - type: path
         generator:
-          type: alphanumeric
-          len: 8
+          type: magic
       - type: query
         name:
           type: fixed
@@ -40,7 +39,7 @@ targets:
           type: choice
           values: [admin, trusted]
         value:
-          type: choice
+          type: magic
           values:
             - "true"
             - "false"
