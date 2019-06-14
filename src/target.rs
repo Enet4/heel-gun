@@ -41,11 +41,11 @@ impl From<Method> for HyperMethod {
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 pub struct TestTarget {
     /// HTTP endpoint relative to the URI
-    endpoint: String,
+    pub endpoint: String,
     /// HTTP method
-    method: Method,
+    pub method: Method,
     /// The methods to randomly test
-    args: Vec<TestArg>,
+    pub args: Vec<TestArg>,
 }
 
 impl TestTarget {

@@ -1,7 +1,7 @@
 use http::uri::Uri;
 use http::StatusCode;
 use hyper::error::Error as HyperError;
-use hyper::Method;
+use hyper::{Body, Method};
 
 /// The outcome of a single HTTP request to the server. It either represents a
 /// "good" outcome (a reasonable response is obtained from the server), or
@@ -18,14 +18,14 @@ pub struct ServerOutcome {
 }
 
 impl ServerOutcome {
-    pub fn with_status(method: Method, uri: Uri, status: StatusCode) -> Self {
+    pub fn with_status(method: Method, uri: Uri, status: StatusCode, body: Body) -> Self {
         ServerOutcome {
             method,
             uri,
             kind: if status.is_server_error() {
-                OutcomeKind::BadError { status }
+                OutcomeKind::BadError { status, body }
             } else {
-                OutcomeKind::Good { status }
+                OutcomeKind::Good { status, body }
             },
         }
     }
@@ -47,11 +47,15 @@ pub enum OutcomeKind {
     Good {
         /// the status code returned by the server
         status: StatusCode,
+        /// the body of the respective HTTP response
+        body: Body,
     },
     /// The server returned a server error response (bad!)
     BadError {
         /// the status code returned by the server (sure to be 5xx)
         status: StatusCode,
+        /// the body of the respective HTTP response
+        body: Body,
     },
     /// An error emerged at the HTTP layer (bad!)
     BadHttp { err: HyperError },
