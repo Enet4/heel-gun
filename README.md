@@ -1,5 +1,5 @@
 # Heel Gun
-[![Build Status](https://travis-ci.org/Enet4/heel-gun.svg?branch=master)](https://travis-ci.org/Enet4/heel-gun) [![dependency status](https://deps.rs/repo/github/Enet4/heel-gun/status.svg)](https://deps.rs/repo/github/Enet4/heel-gun)
+[![Build Status](https://travis-ci.org/Enet4/heel-gun.svg?branch=master)](https://travis-ci.org/Enet4/heel-gun) [![dependency status](https://deps.rs/repo/github/Enet4/heel-gun/status.svg)](https://deps.rs/repo/github/Enet4/heel-gun) ![Minimum Rust Version Stable](https://img.shields.io/badge/rustc-stable-green.svg)
 
 Test your HTTP server for robustness to arbitrary inputs. `heel-gun` is a tool
 which performs several HTTP requests to identify cases where the server
@@ -61,13 +61,32 @@ POST,http://testmachine.myspot.net:8080/user/pkgagTBnem?admin,501 Not Implemente
 POST,http://testmachine.myspot.net:8080/user/rRdlgzll2D?admin=false,501 Not Implemented
 ```
 
+Moreover, the HTTP bodies of server responses are saved in an output directory:
+
+```none
+output/
+├── GET
+│   └── cool-endpoint
+│       ├── lBtY2g18?id=0&more=891134
+│       ├── ie9EMV9G?id=-1&more=238164
+│       ├── dJ7iV7cs?id=null&more=415128
+│       └──  HCvpC90k?id=null&more=902781
+└── POST
+    └── user
+        ├── UBwqFvFnXh?admin=undefined
+        ├── LkspwEu0g4?admin=null
+        ├── pkgagTBnem?admin
+        └── rRdlgzll2D?admin=false
+```
+
+
 For the time being, problematic responses are either HTTP responses with a
 `5xx` status code, or requests which result in a broken or timed out connection.
 
-`<config>` is a YAML or JSON file describing a set of rules for producing URI paths
-and other parameters such as query string arguments.
+`<config>` is a file describing a set of rules for producing URI paths and
+other parameters such as query string arguments.
 A more extensive documentation will be provided eventually. In the mean time,
-please see the [resources](resources) directory for an example.
+please see the [resources](resources) directory for examples.
 
 You can also define the `RUST_LOG` environment variable for additional logging
 output (as defined by [`log`](https://crates.io/crates/log), to one of "error",
