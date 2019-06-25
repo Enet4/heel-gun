@@ -4,10 +4,18 @@ description = "A tool for testing an HTTP server's robustness to arbitrary reque
 repository = "https://github.com/Enet4/heel-gun"
 version = "0.1.1-alpha.0"
 edition = "2018"
+readme = "README.md"
 authors = ["Eduardo Pinho <enet4mikeenet@gmail.com>"]
 license = "Apache-2.0 OR MIT"
 categories = ["command-line-utilities", "network-programming"]
 keywords = ["cli", "http", "async", "testing"]
+exclude = ["resources/*", "heel-gun.d.ts"]
+
+[badges]
+
+[badges.travis-ci]
+branch = "master"
+repository = "Enet4/heel-gun"
 
 [dependencies]
 structopt = "0.2.15"
