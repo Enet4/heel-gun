@@ -277,7 +277,7 @@ dependencies = [
 
 [[package]]
 name = "heel-gun"
-version = "0.1.0"
+version = "0.1.1-alpha.0"
 dependencies = [
  "csv 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "env_logger 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
