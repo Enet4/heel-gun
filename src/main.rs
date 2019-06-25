@@ -181,6 +181,17 @@ where
         })
 }
 
+#[cfg(target_os = "windows")]
+fn to_filename(path_and_query: String) -> String {
+    // replace `?` (reserved character in some systems)
+    path_and_query.replace('?', "-Q-")
+}
+
+#[cfg(not(target_os = "windows"))]
+fn to_filename(path_and_query: String) -> String {
+    path_and_query
+}
+
 fn main() {
     env_logger::init();
     let HeelGun {
@@ -215,6 +226,7 @@ fn main() {
 
                         // write body to independent file
                         let trimmed_uri = outcome.uri.path_and_query().unwrap().to_string();
+                        let trimmed_uri = to_filename(trimmed_uri);
                         let body_path = outdir.join(format!("{}/{}", method, trimmed_uri));
                         let body_path_parent = body_path.parent().unwrap().to_owned();
                         info!("\tSaving response body to {}", body_path.display());
