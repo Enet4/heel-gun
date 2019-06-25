@@ -1,5 +1,5 @@
 # Heel Gun
-[![Build Status](https://travis-ci.org/Enet4/heel-gun.svg?branch=master)](https://travis-ci.org/Enet4/heel-gun) [![dependency status](https://deps.rs/repo/github/Enet4/heel-gun/status.svg)](https://deps.rs/repo/github/Enet4/heel-gun) ![Minimum Rust Version Stable](https://img.shields.io/badge/rustc-stable-green.svg)
+[![Latest Version](https://img.shields.io/crates/v/heel-gun.svg)](https://crates.io/crates/heel-gun) [![Build Status](https://travis-ci.org/Enet4/heel-gun.svg?branch=master)](https://travis-ci.org/Enet4/heel-gun) [![dependency status](https://deps.rs/repo/github/Enet4/heel-gun/status.svg)](https://deps.rs/repo/github/Enet4/heel-gun) ![Minimum Rust Version Stable](https://img.shields.io/badge/rustc-stable-green.svg)
 
 Test your HTTP server for robustness to arbitrary inputs. `heel-gun` is a tool
 which performs several HTTP requests to identify cases where the server
@@ -61,7 +61,8 @@ POST,http://testmachine.myspot.net:8080/user/pkgagTBnem?admin,501 Not Implemente
 POST,http://testmachine.myspot.net:8080/user/rRdlgzll2D?admin=false,501 Not Implemented
 ```
 
-Moreover, the HTTP bodies of server responses are saved in an output directory:
+Moreover, the HTTP bodies of server error responses are saved in an output
+directory:
 
 ```none
 output/
@@ -79,14 +80,16 @@ output/
         └── rRdlgzll2D?admin=false
 ```
 
-
 For the time being, problematic responses are either HTTP responses with a
-`5xx` status code, or requests which result in a broken or timed out connection.
+`5xx` status code, or requests which result in a broken or timed out
+connection.
 
 `<config>` is a file describing a set of rules for producing URI paths and
-other parameters such as query string arguments.
-A more extensive documentation will be provided eventually. In the mean time,
-please see the [resources](resources) directory for examples.
+other parameters such as query string arguments. The schema is available as a
+TypeScript type definition file ([heel-gun.d.ts](./heel-gun.d.ts)). See also
+the [resources](resources) directory for examples. Support for
+[Play framework "routes"](https://www.playframework.com/documentation/2.7.x/ScalaRouting#The-routes-file-syntax)
+definitions is available as an experimental feature.
 
 You can also define the `RUST_LOG` environment variable for additional logging
 output (as defined by [`log`](https://crates.io/crates/log), to one of "error",
