@@ -50,19 +50,19 @@ POST http://testmachine.myspot.net:8080/user/rRdlgzll2D?admin=false
 And record problematic responses in a CSV file:
 
 ```csv
-method,uri,reason
-GET,http://testmachine.myspot.net:8080/cool-endpoint/lBtY2g18?id=0&more=891134,501 Not Implemented
-GET,http://testmachine.myspot.net:8080/cool-endpoint/ie9EMV9G?id=-1&more=238164,501 Not Implemented
-GET,http://testmachine.myspot.net:8080/cool-endpoint/dJ7iV7cs?id=null&more=415128,501 Not Implemented
-GET,http://testmachine.myspot.net:8080/cool-endpoint/HCvpC90k?id=null&more=902781,501 Not Implemented
-POST,http://testmachine.myspot.net:8080/user/UBwqFvFnXh?admin=undefined,501 Not Implemented
-POST,http://testmachine.myspot.net:8080/user/LkspwEu0g4?admin=null,501 Not Implemented
-POST,http://testmachine.myspot.net:8080/user/pkgagTBnem?admin,501 Not Implemented
-POST,http://testmachine.myspot.net:8080/user/rRdlgzll2D?admin=false,501 Not Implemented
+method,uri,reason,file
+GET,http://testmachine.myspot.net:8080/cool-endpoint/lBtY2g18?id=0&more=891134,501 Not Implemented,GET/cool-endpoint/lBtY2g18?id=0&more=891134
+GET,http://testmachine.myspot.net:8080/cool-endpoint/ie9EMV9G?id=-1&more=238164,501 Not Implemented,GET/cool-endpoint/ie9EMV9G?id=-1&more=238164
+GET,http://testmachine.myspot.net:8080/cool-endpoint/dJ7iV7cs?id=null&more=415128,501 Not Implemented,GET/cool-endpoint/dJ7iV7cs?id=null&more=415128
+GET,http://testmachine.myspot.net:8080/cool-endpoint/HCvpC90k?id=null&more=902781,501 Not Implemented,GET/cool-endpoint/HCvpC90k?id=null&more=902781
+POST,http://testmachine.myspot.net:8080/user/UBwqFvFnXh?admin=undefined,501 Not Implemented,POST/user/UBwqFvFnXh?admin=undefined
+POST,http://testmachine.myspot.net:8080/user/LkspwEu0g4?admin=null,501 Not Implemented,POST/user/LkspwEu0g4?admin=null
+POST,http://testmachine.myspot.net:8080/user/pkgagTBnem?admin,501 Not Implemented,POST/user/pkgagTBnem?admin
+POST,http://testmachine.myspot.net:8080/user/rRdlgzll2D?admin=false,501 Not Implemented,POST/user/rRdlgzll2D?admin=false
 ```
 
-Moreover, the HTTP bodies of server error responses are saved in an output
-directory:
+Moreover, the HTTP bodies of server error responses are saved as independent
+files in an output directory:
 
 ```none
 output/

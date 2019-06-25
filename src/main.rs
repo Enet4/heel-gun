@@ -37,7 +37,7 @@ pub struct HeelGun {
     /// number of iterations to test for each target
     #[structopt(short = "N", default_value = "100")]
     n: u32,
-    /// path to the output directory containing the logs
+    /// path to the output directory containing the logs and responses
     #[structopt(parse(from_os_str), default_value = "output")]
     outdir: PathBuf,
 }
@@ -211,7 +211,7 @@ fn main() {
     let output_filename = outdir.join("failures.csv");
     let failures = File::create(&output_filename).unwrap();
     let mut failures = csv::Writer::from_writer(failures);
-    failures.write_record(&["method", "uri", "reason"]).unwrap();
+    failures.write_record(&["method", "uri", "reason", "file"]).unwrap();
     let executor = runtime.executor();
     runtime.block_on(
             iter_ok::<_, Error>(targets)
@@ -227,7 +227,8 @@ fn main() {
                         // write body to independent file
                         let trimmed_uri = outcome.uri.path_and_query().unwrap().to_string();
                         let trimmed_uri = to_filename(trimmed_uri);
-                        let body_path = outdir.join(format!("{}/{}", method, trimmed_uri));
+                        let relative_path = format!("{}{}", method, trimmed_uri);
+                        let body_path = outdir.join(&relative_path);
                         let body_path_parent = body_path.parent().unwrap().to_owned();
                         info!("\tSaving response body to {}", body_path.display());
                         let report_file = tokio_fs::create_dir_all(body_path_parent)
@@ -248,7 +249,7 @@ fn main() {
                         result(
                             // write record to CSV file
                             failures
-                                .write_record(&[&method, &uri, &reason])
+                                .write_record(&[&method, &uri, &reason, &relative_path])
                                 .map_err(|e| e.into()),
                         )
                     }
@@ -259,7 +260,7 @@ fn main() {
 
                         result(
                             failures
-                                .write_record(&[&method, &uri, &reason])
+                                .write_record(&[&method, &uri, &reason, "<N/A>"])
                                 .map_err(|e| e.into()),
                         )
                     }
