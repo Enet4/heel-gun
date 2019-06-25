@@ -1,5 +1,7 @@
 [package]
 name = "heel-gun"
+description = "A tool for testing an HTTP server's robustness to arbitrary requests"
+repository = "https://github.com/Enet4/heel-gun"
 version = "0.1.0-pre.1"
 edition = "2018"
 authors = ["Eduardo Pinho <enet4mikeenet@gmail.com>"]
