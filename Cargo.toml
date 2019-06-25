@@ -2,7 +2,7 @@
 name = "heel-gun"
 description = "A tool for testing an HTTP server's robustness to arbitrary requests"
 repository = "https://github.com/Enet4/heel-gun"
-version = "0.1.1-alpha.0"
+version = "0.1.1"
 edition = "2018"
 readme = "README.md"
 authors = ["Eduardo Pinho <enet4mikeenet@gmail.com>"]
