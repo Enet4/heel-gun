@@ -18,7 +18,7 @@ branch = "master"
 repository = "Enet4/heel-gun"
 
 [dependencies]
-structopt = "0.2.15"
+structopt = "0.3.1"
 tokio = "0.1.16"
 hyper = "0.12.25"
 rand = "0.7.0"
