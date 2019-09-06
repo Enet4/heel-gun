@@ -8,7 +8,7 @@ use std::path::Path;
 
 use crate::target::{ArgGenerator, TestArg, TestTarget};
 
-pub type DynError = Box<std::error::Error + Send + Sync>;
+pub type DynError = Box<dyn std::error::Error + Send + Sync>;
 
 /// Server testing configuration object
 #[derive(Debug, Clone, Deserialize)]
