@@ -40,6 +40,9 @@ pub struct HeelGun {
     /// path to the output directory containing the logs and responses
     #[structopt(parse(from_os_str), default_value = "output")]
     outdir: PathBuf,
+    /// Ignore stateful HTTP methods
+    #[structopt(long = "get-only")]
+    get_only: bool,
 }
 
 /// Errors obtained from target testing
@@ -199,9 +202,17 @@ fn main() {
         n,
         url,
         outdir,
+        get_only,
     } = HeelGun::from_args();
 
     let Config { targets } = Config::from_file(config_file).unwrap();
+
+    // filter modifying methods
+    let targets = if get_only {
+        targets.into_iter().filter(|t| t.method == target::Method::Get).collect()
+    } else {
+        targets
+    };
 
     create_dir_all(&outdir).unwrap();
 
