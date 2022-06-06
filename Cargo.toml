@@ -20,7 +20,7 @@ repository = "Enet4/heel-gun"
 [dependencies]
 structopt = "0.3.1"
 tokio = "0.1.16"
-hyper = "0.12.25"
+hyper = "0.14.10"
 rand = "0.8.5"
 log = "0.4.6"
 serde = { version = "1.0.89", features = ["serde_derive"] }
