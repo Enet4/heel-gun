@@ -159,13 +159,14 @@ where
             Union { generators } if generators.is_empty() => "".to_string(),
             Union { generators } => generators.choose(rng).unwrap().sample(rng),
             Choice { values } => values.choose(rng).unwrap().to_string(),
-            IntRange { low, high } => rng.gen_range(low, high).to_string(),
-            Numeric { len } => std::iter::repeat_with(|| rng.gen_range(b'0', b'9' + 1) as char)
+            IntRange { low, high } => rng.gen_range(*low ..= *high).to_string(),
+            Numeric { len } => std::iter::repeat_with(|| rng.gen_range(b'0' ..= b'9') as char)
                 .take(*len as usize)
                 .collect(),
             AlphaNumeric { len } => std::iter::repeat_with(|| {
                 rng.sample(rand::distributions::Alphanumeric)
             }).take(*len as usize)
+                .map(|c| c as char)
                 .collect(),
             Magic => {
                 let generators = [
