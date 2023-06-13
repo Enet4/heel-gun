@@ -19,7 +19,7 @@ repository = "Enet4/heel-gun"
 
 [dependencies]
 structopt = "0.3.1"
-tokio = "0.1.16"
+tokio = "1.18.5"
 hyper = "0.12.25"
 rand = "0.8.5"
 log = "0.4.6"
